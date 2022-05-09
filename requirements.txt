@@ -6,3 +6,10 @@ hydra-colorlog
 seaborn
 mlflow
 matplotlib
+
+pytest
+pytest-black
+pytest-flake8
+pytest-cov
+black
+Faker
