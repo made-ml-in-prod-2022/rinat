@@ -18,12 +18,15 @@ def test_data_processor(test_input, expected):
         df.to_csv(filename)
         data = DataPreprocessor(filename, True, 0.5, "condition")
         X_train, y_train, X_val, y_val = data.process()
-        assert len(X_train) == expected, (
-            f"Expected dataset len is {expected}, but got {len(X_train)}")
+        assert (
+            len(X_train) == expected
+        ), f"Expected dataset len is {expected}, but got {len(X_train)}")
 
 
-@pytest.mark.parametrize("features,num", [([CAT_FEATURES, NUM_FEATURES], 10),
-                                          ([CAT_FEATURES, NUM_FEATURES], 100)])
+@pytest.mark.parametrize(
+    "features,num",
+    [([CAT_FEATURES, NUM_FEATURES], 10), ([CAT_FEATURES, NUM_FEATURES], 100)],
+)
 def test_model_pipeline(features, num):
     with tempfile.TemporaryDirectory() as tmpdirname:
         df = generate_dataset(num)
