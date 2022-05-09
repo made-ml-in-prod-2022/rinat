@@ -20,7 +20,7 @@ def test_data_processor(test_input, expected):
         X_train, y_train, X_val, y_val = data.process()
         assert (
             len(X_train) == expected
-        ), f"Expected dataset len is {expected}, but got {len(X_train)}")
+        ), f"Expected dataset len is {expected}, but got {len(X_train)}"
 
 
 @pytest.mark.parametrize(
@@ -37,7 +37,7 @@ def test_model_pipeline(features, num):
         model = LR()
         pipeline = ModelPipeline(features[0], features[1], model)
         pipe = pipeline.get_pipeline()
-        assert pipe is not None, ("The pipeline is not working properly")
+        assert pipe is not None, "The pipeline is not working properly"
         pipe.fit(X_train, y_train)
         y_preds = pipe.predict(X_val)
         assert len(y_preds) == len(y_val)
