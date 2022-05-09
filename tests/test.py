@@ -1,7 +1,7 @@
 from .dataset_generator import generate_dataset
-from predictor.data.data import DataPreprocessor
-from predictor.pipeline.pipeline import ModelPipeline
-from predictor.models.models import LR, RF
+from ml_project.predictor.data.data import DataPreprocessor
+from ml_project.predictor.pipeline.pipeline import ModelPipeline
+from ml_project.predictor.models.models import LR, RF
 import tempfile
 import os
 import pytest
