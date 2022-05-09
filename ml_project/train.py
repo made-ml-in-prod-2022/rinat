@@ -1,8 +1,11 @@
 import hydra
-from omegaconf import DictConfig
 import logging
 import logging.config
 import yaml
+from predictor.entities.config import Config, register_configs
+
+
+register_configs()
 
 
 def setup_logging(logging_yaml_config_fpath):
@@ -12,13 +15,13 @@ def setup_logging(logging_yaml_config_fpath):
             logging.config.dictConfig(yaml.safe_load(config_fin))
 
 
+# @hydra.main(config_path=None, config_name="config") using DataClass instead of configs
 @hydra.main(config_path="configs/", config_name="train.yaml")
-def main(config: DictConfig):
-
+def main(config: Config):
     # Imports can be nested inside @hydra.main to optimize tab completion
     # https://github.com/facebookresearch/hydra/issues/934
     from predictor.engine.trainer import train
-    setup_logging(config.logger)
+    setup_logging(config.default_logger)
     # Train model
     return train(config)
 

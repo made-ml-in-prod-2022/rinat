@@ -4,7 +4,7 @@ consol_log:
 formatters:
   simple:
     class: logging.Formatter
-    format: "%(asctime)s %(name)s %(levelname)s %(message)s"
+    format: "[%(asctime)s] [%(name)s] [%(levelname)s] %(message)s"
     datefmt: "%Y-%M-%D %H:%M:%S"
 handlers:
   debug_handler:

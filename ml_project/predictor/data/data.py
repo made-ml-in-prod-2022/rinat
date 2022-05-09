@@ -6,7 +6,7 @@ import numpy as np
 import logging
 
 
-logger = logging.getLogger("logs")
+logger = logging.getLogger(__name__)
 
 
 class DataPreprocessor:
@@ -40,6 +40,14 @@ class DataPreprocessor:
         y_val = np.array(valid_df[self.target])
         return X_train, y_train, X_val, y_val
 
+    def data_inference(self, df: pd.DataFrame):
+        X = df.drop(columns=self.target)
+        return X
+
+    def inference_process(self):
+        df = self.data_loader()
+        X = self.data_inference(df)
+        return X
 
     def data_loader(self) -> pd.DataFrame:
         logger.info(f'Reading data from {self.file_path}')

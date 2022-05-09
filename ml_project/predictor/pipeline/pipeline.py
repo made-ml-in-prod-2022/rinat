@@ -6,7 +6,7 @@ from hydra.utils import instantiate
 import logging
 
 
-logger = logging.getLogger("logs")
+logger = logging.getLogger(__name__)
 
 
 class ModelPipeline:
@@ -35,7 +35,7 @@ class ModelPipeline:
         pipe = Pipeline(
             steps=
             [
-                ('preprocessor', preprocessor), ('model', RandomForestClassifier())
+                ('preprocessor', preprocessor), ('model', self.model)
             ]
         )
         return pipe

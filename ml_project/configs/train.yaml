@@ -6,8 +6,9 @@ defaults:
   - data: data.yaml
   - pipeline: pipeline.yaml
   - metrics: metrics.yaml
-
+  - logger: mlflow.yaml
 #  - experiment: resnet18
+
 
 # path to original working directory
 # hydra hijacks working directory by changing it to the new log directory
@@ -26,10 +27,15 @@ train: True
 test: True
 
 save_checkpoint_file: True
-checkpoint_file: ${hydra:runtime.cwd}/model_weights
+checkpoint_file: ${original_work_dir}/model_weights
 
 # seed for random number generators in pytorch, numpy and python.random
 seed: 3407
 
 name: "logistic_regression"
-logger: ${original_work_dir}/configs/logger.yaml
+default_logger: ${original_work_dir}/configs/logger/logger.yaml
+
+hydra:
+  sweep:
+    dir: ${hydra.job.name}
+    subdir: ${hydra.job.num}
