@@ -1,9 +1,11 @@
 from abc import ABC, abstractmethod
+
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
 
 
 class Model(ABC):
+
     @abstractmethod
     def __init__(self):
         super().__init__()
@@ -24,12 +26,14 @@ class Model(ABC):
 
 
 class LR(Model):
+
     def __init__(self, **kwargs):
         super().__init__()
         self.model = LogisticRegression(**kwargs)
 
 
 class RF(Model):
+
     def __init__(self, **kwargs):
         super().__init__()
         self.model = RandomForestClassifier(**kwargs)

@@ -26,10 +26,10 @@ train: True
 test: True
 
 checkpoint_file: ???
-csv_output: ${original_work_dir}/predictions
+csv_output: ${original_work_dir}/ml_project/predictions
 csv_filename: "output.csv"
 # seed for random number generators in pytorch, numpy and python.random
 seed: 3407
 
 name: "logistic_regression"
-logger: ${original_work_dir}/configs/logger.yaml
+logger: ${original_work_dir}/ml_project/configs/logger.yaml

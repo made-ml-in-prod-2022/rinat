@@ -1,24 +1,21 @@
-import os.path
-from typing import NoReturn
-import random
-import numpy as np
-from hydra.utils import instantiate
-import pickle
-from predictor.utils.utils import set_global_seed
 import logging
-import joblib
-from predictor.entities.config import Config
+import os.path
 
+import joblib
+from hydra.utils import instantiate
+
+from predictor.entities.config import Config
+from predictor.utils.utils import set_global_seed
 
 logger = logging.getLogger(__name__)
 
 
 def train(config: Config):
     mlflow_logger = instantiate(config.logger)
-    if config.seed  is not None:
+
+    if config.seed is not None:
         set_global_seed(config.seed)
         logger.info(f"The global random seed is fixed {config.seed}")
-
 
     data_processor = instantiate(config.data)
     X_train, y_train, X_val, y_val = data_processor.process()
@@ -35,7 +32,7 @@ def train(config: Config):
     for metric, func in metrics.items():
         output_metric = func(y_val, y_preds)
         logger.info(f"{metric} on validation dataset: {output_metric}")
-        if mlflow_logger:
+        if mlflow_logger is not None:
             mlflow_logger.log_metric(metric, output_metric)
 
     if config.save_checkpoint_file:
@@ -47,13 +44,14 @@ def train(config: Config):
 
         joblib.dump(model_pipeline, filename)
 
-        if mlflow_logger:
-            mlflow_logger.log_sklearn_model(model_pipeline, "log_sklearn_model")
+        if mlflow_logger is not None:
+            mlflow_logger.log_sklearn_model(model_pipeline,
+                                            "log_sklearn_model")
             mlflow_logger.end_run()
 
 
 def predict(config: Config):
-    if config.seed  is not None:
+    if config.seed is not None:
         set_global_seed(config.seed)
         logger.info(f"The global random seed is fixed {config.seed}")
 

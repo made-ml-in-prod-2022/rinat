@@ -8,7 +8,8 @@ from hydra.core.config_store import ConfigStore
 @dataclass
 class Data:
     _target_: str = "predictor.data.data.DataPreprocessor"
-    file_path: str =  os.path.join(os.getcwd(), "data/heart_cleveland_upload.csv")
+    file_path: str = os.path.join(os.getcwd(),
+                                  "data/heart_cleveland_upload.csv")
     shuffle: bool = True
     test_size: float = 0.2
     target: str = "condition"
@@ -27,8 +28,10 @@ class Model:
 @dataclass
 class Pipeline:
     _target_: str = "predictor.pipeline.pipeline.ModelPipeline"
-    cat_features: Tuple[str] = ("sex", "fbs", "restecg", "exang", "slope", "ca", "thal")
-    num_features: Tuple[str] = ("age", "cp", "trestbps", "chol", "thalach", "oldpeak")
+    cat_features: Tuple[str] = ("sex", "fbs", "restecg", "exang", "slope",
+                                "ca", "thal")
+    num_features: Tuple[str] = ("age", "cp", "trestbps", "chol", "thalach",
+                                "oldpeak")
     model: Any = Model()
 
 

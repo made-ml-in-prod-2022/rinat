@@ -1,15 +1,18 @@
 import logging
+
 import mlflow
 
 
 class MLflowLogger:
+
     def __init__(self, experiment_name: str, run_name: str, tracking_uri: str):
         mlflow.warnings.filterwarnings("ignore")
         mlflow.set_tracking_uri(tracking_uri)
         self.mlflow_run = None
         mlflow.set_experiment(experiment_name)
         experiment = mlflow.get_experiment_by_name(experiment_name)
-        mlflow.start_run(run_name=run_name, experiment_id=experiment.experiment_id)
+        mlflow.start_run(run_name=run_name,
+                         experiment_id=experiment.experiment_id)
         self.mlflow_run = mlflow.active_run()
 
         if self.mlflow_run:

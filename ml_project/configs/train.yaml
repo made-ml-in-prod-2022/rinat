@@ -27,13 +27,13 @@ train: True
 test: True
 
 save_checkpoint_file: True
-checkpoint_file: ${original_work_dir}/model_weights
+checkpoint_file: ${hydra:runtime.cwd}/ml_project/model_weights
 
 # seed for random number generators in pytorch, numpy and python.random
 seed: 3407
 
 name: "logistic_regression"
-default_logger: ${original_work_dir}/configs/logger/logger.yaml
+default_logger: ${original_work_dir}/ml_project/configs/logger/logger.yaml
 
 hydra:
   sweep:
