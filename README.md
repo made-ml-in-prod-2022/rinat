@@ -35,17 +35,19 @@ python train.py --multirun metrics=f1.yaml,roc_auc.yaml,accuracy.yaml
 ```
 Logger's output
 ```bash
-[2022-55-05/09/22 14:55:45] [logs] [INFO] The global random seed is fixed 3407
-[2022-55-05/09/22 14:55:46] [logs] [INFO] Initializing data preprocessing}
-[2022-55-05/09/22 14:55:46] [logs] [INFO] Reading data from /home/xrenya/Documents/MADE/MLProd/rinat/ml_project/data/heart_cleveland_upload.csv
-[2022-55-05/09/22 14:55:46] [logs] [INFO] Split dataset into train/test sizes: 0.8/0.2
-[2022-55-05/09/22 14:55:46] [logs] [INFO] The model is initialized
-[2022-55-05/09/22 14:55:46] [logs] [INFO] Model fitting
-[2022-55-05/09/22 14:55:46] [logs] [INFO] Model prediction on validation dataset
-[2022-55-05/09/22 14:55:46] [logs] [INFO] roc_auc_score on validation dataset: 0.8481646273637374
-[2022-55-05/09/22 14:55:46] [logs] [INFO] accuracy_score on validation dataset: 0.85
-[2022-55-05/09/22 14:55:46] [logs] [INFO] f1_score on validation dataset: 0.8363636363636363
-[2022-55-05/09/22 14:55:46] [logs] [INFO] Saving pipeline into /home/xrenya/Documents/MADE/MLProd/rinat/ml_project/LR.pkl
+2022/05/09 18:24:08 INFO mlflow.tracking.fluent: Experiment with name 'Classification' does not exist. Creating a new experiment.
+[2022-24-05/09/22 18:24:08] [root] [INFO] [MlFlow] logging initiated successfully.
+[2022-24-05/09/22 18:24:08] [predictor.engine.trainer] [INFO] The global random seed is fixed 3407
+[2022-24-05/09/22 18:24:08] [predictor.data.data] [INFO] Initializing data preprocessing}
+[2022-24-05/09/22 18:24:08] [predictor.data.data] [INFO] Reading data from /home/user/MLProd/rinat/ml_project/data/heart_cleveland_upload.csv
+[2022-24-05/09/22 18:24:08] [predictor.data.data] [INFO] Split dataset into train/test sizes: 0.8/0.2
+[2022-24-05/09/22 18:24:08] [predictor.pipeline.pipeline] [INFO] The model is initialized
+[2022-24-05/09/22 18:24:08] [predictor.engine.trainer] [INFO] Model fitting
+[2022-24-05/09/22 18:24:08] [predictor.engine.trainer] [INFO] Model prediction on validation dataset
+[2022-24-05/09/22 18:24:08] [predictor.engine.trainer] [INFO] roc_auc_score on validation dataset: 0.8481646273637374
+[2022-24-05/09/22 18:24:08] [predictor.engine.trainer] [INFO] accuracy_score on validation dataset: 0.85
+[2022-24-05/09/22 18:24:08] [predictor.engine.trainer] [INFO] f1_score on validation dataset: 0.8363636363636363
+[2022-24-05/09/22 18:24:08] [predictor.engine.trainer] [INFO] Saving pipeline into /home/user/MLProd/rinat/ml_project/model_weights/LR.pkl
 ```
 Results will be in ml_project/outputs/*starting date*/*starting time*
 
@@ -97,10 +99,7 @@ Project Organization
     │   │        └── utils.py 
     │   │
     │   ├── entities                <- Dataclasses for config validation
-    │   │   ├── config.py
-    │   │   ├── data.py
-    │   │   ├── metrics.py
-    │   │   └── models.py
+    │   │   └── config.py
     │   │
     │   ├── train.py       <- Train pipeline main script
     │   └── predict.py   <- Inference pipeline main script
@@ -109,3 +108,6 @@ Project Organization
     ├── setup.cfg                   <- Store pytest configurations
     └── setup.py                    <- Makes project pip installable (pip install -e .) so src can be imported
 --------
+
+### Config supports
+The project supports DataClass as HydraConfig or just yaml config files.
