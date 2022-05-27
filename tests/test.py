@@ -1,10 +1,12 @@
+import os
+import pytest
+import tempfile
+
 from .dataset_generator import generate_dataset
 from ml_project.predictor.data.data import DataPreprocessor
 from ml_project.predictor.pipeline.pipeline import ModelPipeline
 from ml_project.predictor.models.models import LR, RF
-import tempfile
-import os
-import pytest
+
 
 CAT_FEATURES = ["sex", "fbs", "restecg", "exang", "slope", "ca", "thal"]
 NUM_FEATURES = ["age", "cp", "trestbps", "chol", "thalach", "oldpeak"]
