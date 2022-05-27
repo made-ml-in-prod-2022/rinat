@@ -5,6 +5,7 @@ import yaml
 
 from predictor.entities.config import Config, register_configs
 
+
 register_configs()
 
 
