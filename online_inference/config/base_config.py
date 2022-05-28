@@ -6,6 +6,7 @@ from dataclasses import asdict, dataclass, field
 @dataclass
 class Config:
     logger: str = "config/logger.yaml"
+    checkpoint_file: str = "model/model.pkl"
     def to_dict(self) -> dict:
         res = {}
         for k, v in asdict(self).items():
