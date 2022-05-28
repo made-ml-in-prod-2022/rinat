@@ -1,0 +1,4 @@
+[2022-27-05/28/22 19:27:25] [asyncio] [DEBUG] Using selector: EpollSelector
+[2022-28-05/28/22 19:28:23] [asyncio] [DEBUG] Using selector: EpollSelector
+[2022-29-05/28/22 19:29:22] [asyncio] [DEBUG] Using selector: EpollSelector
+[2022-30-05/28/22 19:30:19] [asyncio] [DEBUG] Using selector: EpollSelector
