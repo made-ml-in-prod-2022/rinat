@@ -5,8 +5,10 @@ from dataclasses import asdict, dataclass, field
 
 @dataclass
 class Config:
+    """Base configs"""
     logger: str = "config/logger.yaml"
-    checkpoint_file: str = "model/model.pkl"
+    model_checkpoint_file: str = "model/model.pkl"
+    transformer_checkpoint_file: str = "model/transformer.pkl"
     def to_dict(self) -> dict:
         res = {}
         for k, v in asdict(self).items():
