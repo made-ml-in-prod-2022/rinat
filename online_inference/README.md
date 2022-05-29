@@ -18,6 +18,7 @@ sudo apt install docker.io
 docker pull xrenya/cont_app:latest
 ```
 
+## Usage
 #### Model pull using DvC
 ```bash
 dvc pull
@@ -27,8 +28,6 @@ dvc pull
 ```bash
 docker docker run -p 1234:5000 --name cont_app app
 ```
-
-## Usage
 ### Tests
 ```bash
 python -m pytest tests/test_app.py 
