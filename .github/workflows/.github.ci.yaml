@@ -31,4 +31,4 @@ jobs:
         python -m pip install -r online_inference/requirements.txt
     - name: Test with pytest, black, flake8
       run: |
-        python -m pytest online_inference/tests/test_app.py 
+        pytest online_inference/tests/test_app.py 
