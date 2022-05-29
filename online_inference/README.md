@@ -5,6 +5,10 @@ Production ready project to solve classification task from Kaggle Dataset "[Hear
 Python >= 3.6
 
 ## Installation
+#### Install DvC
+```bash
+sudo snap install dvc --classic
+```
 #### Install Docker on Ubuntu 18.04
 ```bash
 sudo apt install docker.io
