@@ -79,7 +79,3 @@ Project Organization
     ├── app.py                      <- Run an application
     ├── Dockerfile                  <- Docker configuration file
     └── requirements.txt            <- Requirement to install for application to run
---------
-
-### Config supports
-The project supports DataClass as HydraConfig or just yaml config files.
