@@ -10,7 +10,10 @@ on:
   pull_request:
     branches: 
       - "**"
-
+defaults:
+  run:
+    working-directory: ./online_inference
+    
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -28,7 +31,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        python -m pip install -r online_inference/requirements.txt
+        python -m pip install -r requirements.txt
     - name: Test with pytest, black, flake8
       run: |
-        pytest online_inference/tests/test_app.py 
+        pytest tests/test_app.py 
