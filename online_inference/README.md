@@ -16,6 +16,15 @@ sudo apt install docker.io
 #### Docker pull
 ```bash
 docker pull xrenya/cont_app:latest
+```
+
+#### Model pull using DvC
+```bash
+dvc pull
+```
+
+#### Docker run
+```bash
 docker docker run -p 1234:5000 --name cont_app app
 ```
 
