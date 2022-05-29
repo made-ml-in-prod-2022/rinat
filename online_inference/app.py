@@ -1,10 +1,12 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
-#----------------------------------------------------------------------------
-# Author: Xrenya
-# Created Date: 28.05.2022 17:10
-# version ='1.0'
-# ---------------------------------------------------------------------------
+'''
+coding: utf-8 -*-
+----------------------------------------------------------------------------
+Author: Xrenya
+Created Date: 28.05.2022 17:10
+version ='1.0'
+---------------------------------------------------------------------------
+'''
 import logging
 import os
 
@@ -33,15 +35,17 @@ def load_model():
     transformer_path = os.path.join(os.getcwd(),
                                     cfg.transformer_checkpoint_file)
     if model_path is None or transformer_path is None:
-        error = f"Model weights are not provided, 'model_path' is None or 'transformer_path' is None"
+        error = "Model weights are not provided, 'model_path'" \
+            "is None or 'transformer_path' is None"
         logger.error(
-            f"Model weights are not provided, 'model_path' is {model_path} or transformer_path is {transformer_path}"
+            "Model weights are not provided, 'model_path' is "
+            f"{model_path} or transformer_path is {transformer_path}"
         )
         raise RuntimeError(error)
     global model, transformer
     model = joblib.load(model_path)
     transformer = joblib.load(transformer_path)
-    logger.info(f'Model is successfully loaded and ready for inference')
+    logger.info('Model is successfully loaded and ready for inference')
 
 
 @app.get('/')

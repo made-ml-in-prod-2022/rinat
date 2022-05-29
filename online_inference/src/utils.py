@@ -39,7 +39,9 @@ def prediction(
 ) -> ModelResponse:
     """Prediction function"""
     if len(data) == 0:
-        raise HTTPException(status_code=400, detail="Input should not be empty")
+        raise HTTPException(
+            status_code=400, detail="Input should not be empty"
+        )
     data = pd.DataFrame(np.array(data), columns=feature_names)
     data = transformer.transform(data)
     transformed_df = pd.DataFrame(data)
