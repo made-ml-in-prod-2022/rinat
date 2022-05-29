@@ -18,7 +18,7 @@ docker docker run -p 1234:5000 --name cont_app app
 ## Usage
 ### Tests
 ```bash
-python -m pytest -v
+python -m pytest tests/test_app.py 
 ```
 ### GUI for application
 ```bash
