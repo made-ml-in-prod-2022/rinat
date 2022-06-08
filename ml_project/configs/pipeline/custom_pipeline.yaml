@@ -1,0 +1,5 @@
+_target_: ml_project.predictor.pipeline.pipeline.ModelPipeline
+cat_features: ["sex", "fbs", "restecg", "exang", "slope", "ca", "thal"]
+num_features: ["age", "cp", "trestbps", "chol", "thalach", "oldpeak"]
+model:
+  _target_: ml_project.predictor.models.models.RF

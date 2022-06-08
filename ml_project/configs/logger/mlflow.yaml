@@ -1,0 +1,4 @@
+_target_: predictor.logger.mlflow.MLflowLogger
+experiment_name: Classification
+run_name: Experiment
+tracking_uri: ${original_work_dir}/ml_project/mlruns
