@@ -4,5 +4,9 @@ FROM ${AIRFLOW_BASE_IMAGE}
 RUN pip install --user --no-cache-dir \
     apache-airflow-providers-docker==2.7.0
 
+COPY requirements.txt /build/requirements.txt
+
+RUN pip install -r /build/requirements.txt
+
 USER root
 ENV PYTHONPATH=/home/airflow/.local/lib/python3.7/site-packages

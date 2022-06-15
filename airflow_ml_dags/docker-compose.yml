@@ -5,16 +5,12 @@ x-airflow-image: &airflow_image apache/airflow:2.3.2-python3.7
 x-environment: &airflow_environment
   - AIRFLOW__CORE__EXECUTOR=LocalExecutor
   - AIRFLOW__CORE__LOAD_DEFAULT_CONNECTIONS=False
-  - AIRFLOW__CORE__LOAD_EXAMPLES=False
-  - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql://airflow:airflow@postgres:5432/airflowdb
+  - AIRFLOW__CORE__LOAD_EXAMPLES=True
+  - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql://airflow:airflow@postgres:5432/airflow
   - AIRFLOW__CORE__STORE_DAG_CODE=True
   - AIRFLOW__CORE__STORE_SERIALIZED_DAGS=True
   - AIRFLOW__WEBSERVER__EXPOSE_CONFIG=True
-  - AIRFLOW__SMTP__SMTP_HOST=smtp.gmail.com
-  - AIRFLOW__SMTP__SMTP_PORT=587
-  - AIRFLOW__SMTP__SMTP_USER=admin@admin.com
-  - AIRFLOW__SMTP__SMTP_PASSWORD=admin
-  - MLFLOW_TRACKING_URL=http://localhost:5000
+  - AIRFLOW__CORE__FERNET_KEY=${FERNET_KEY}
   - MODEL_NAME=Classifier
   - AIRFLOW__LOGGING__LOGGING_LEVEL=INFO
 
@@ -25,7 +21,7 @@ services:
     volumes:
       - ./docker-postgres-multiple-databases:/docker-entrypoint-initdb.d
     environment:
-      - POSTGRES_MULTIPLE_DATABASES=airflowdb,mlflowdb
+      - POSTGRES_MULTIPLE_DATABASES=airflowdb
       - POSTGRES_USER=airflow
       - POSTGRES_PASSWORD=airflow
     ports:
@@ -41,10 +37,7 @@ services:
       - postgres
     environment: *airflow_environment
     entrypoint: /bin/bash
-    command: >-
-      -c 'airflow db init && airflow users create --username admin --password admin
-      --firstname Anonymous --lastname Admin --role Admin --email admin@example.org
-      && airflow connections add fs_default --conn-type fs'
+    command: -c 'airflow db init && airflow users create --username admin --password admin --firstname Anonymous --lastname Admin --role Admin --email admin@example.org'
 
   webserver:
     build:
@@ -85,14 +78,6 @@ services:
     image: airflow-ml-base
     restart: "no"
 
-  predict:
-    build:
-      context: images/airflow-predict
-    image: airflow-predict
-    depends_on:
-      - ml_base
-    restart: "no"
-
   download:
     build:
       context: images/airflow-download
@@ -101,59 +86,45 @@ services:
       - ml_base
     restart: "no"
 
-  preprocess:
-    build:
-      context: images/airflow-preprocess
-    image: airflow-preprocess
-    depends_on:
-      - ml_base
-    restart: "no"
-
-  split:
-    build:
-      context: images/airflow-split
-    image: airflow-split
-    depends_on:
-      - ml_base
-    restart: "no"
-
-  train:
-    build:
-      context: images/airflow-train
-    image: airflow-train
-    depends_on:
-      - ml_base
-    restart: "no"
-
-  validate:
-    build:
-      context: images/airflow-validate
-    image: airflow-validate
-    depends_on:
-      - ml_base
-    restart: "no"
-
-  mlflow:
-    build:
-      context: images/mlflow
-    image: mlflow
-    depends_on:
-      - postgres
-    ports:
-      - "5000:5000"
-    volumes:
-      - mlrun_data:/mlruns
-    command:
-      - sh
-      - -c
-      - mlflow server
-        --host 0.0.0.0
-        --port 5000
-        --backend-store-uri postgresql://airflow:airflow@postgres:5432/mlflowdb
-        --default-artifact-root /mlruns
-    restart: always
+#  predict:
+#    build:
+#      context: images/airflow-predict
+#    image: airflow-predict
+#    depends_on:
+#      - ml_base
+#    restart: "no"
+#
+#  preprocess:
+#    build:
+#      context: images/airflow-preprocess
+#    image: airflow-preprocess
+#    depends_on:
+#      - ml_base
+#    restart: "no"
+#
+#  split:
+#    build:
+#      context: images/airflow-split
+#    image: airflow-split
+#    depends_on:
+#      - ml_base
+#    restart: "no"
+#
+#  train:
+#    build:
+#      context: images/airflow-train
+#    image: airflow-train
+#    depends_on:
+#      - ml_base
+#    restart: "no"
+#
+#  validate:
+#    build:
+#      context: images/airflow-validate
+#    image: airflow-validate
+#    depends_on:
+#      - ml_base
+#    restart: "no"
 
 volumes:
   logs:
-  mlrun_data:
-      name: mlrun_data
