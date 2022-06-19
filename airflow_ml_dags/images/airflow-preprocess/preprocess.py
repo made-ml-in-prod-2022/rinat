@@ -7,33 +7,29 @@ import pandas as pd
 from sklearn.preprocessing import StandardScaler
 
 
-@click.command("preprocess")
-@click.option("--input-dir")
-@click.option("--output-dir")
-@click.option(
-    '--preprocessor-path',
-    envvar='PREPROCESSOR_PATH',
-    type=click.Path(exists=True),
-    required=True
-)
+@click.command(name="preprocess")
+@click.option("--input_dir")
+@click.option("--output_dir")
+@click.option('--preprocessor_path')
 def preprocess(input_dir: str, output_dir: str, preprocessor_path: str) -> None:
-    """Preprocess data input
-
+    """
+    Preprocess data input
     Args:
         input_dir (str): input data directory
         output_dir (str):  output data directory
         preprocessor_path (str): directory to a preprocessing checkpoint
-
     Returns:
         None
     """
     # Load data
-    df = pd.read_csv(os.path.join(input_dir, "train.csv"))
-    X, y = df.drop(columns=["target"]), np.array(df["target"])
-
+    df = pd.read_csv(os.path.join(input_dir, "train.csv"), index_col=0)
+    y = np.array(df["target"].values)
+    X = df.drop(columns=["target"])
+    columns = list(X.columns)
     # Preprocessing
     preprocessor = StandardScaler()
     df = preprocessor.fit_transform(X)
+    df = pd.DataFrame(data=df, columns=columns)
     df["target"] = y
 
     # Check output directories

@@ -6,10 +6,10 @@ from sklearn.datasets import load_wine
 
 
 @click.command("download")
-@click.argument("--output-dir")
+@click.argument("output_dir")
 def download(output_dir: str):
     """Download wine dataset (load_wine) from sklearn.datasets
-    
+
     Args:
         output_dir (str): output directory to save the dataset in csv format
     """

@@ -1,0 +1,10 @@
+click
+joblib
+numpy
+pandas
+python-dateutil
+pytz
+scikit-learn
+scipy
+six
+threadpoolctl
