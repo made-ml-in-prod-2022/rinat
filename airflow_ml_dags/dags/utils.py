@@ -1,13 +1,13 @@
 from datetime import timedelta
-import os
+
 
 
 default_args = {
-    "owner": "airflow",
-    "email_on_failure": True,
-    "email": ["airflow@example.com"],  # "airflow@example.com"
-    "retries": 1,
-    "retry_delay": timedelta(minutes=1),
+    "owner": "admin",
+    "email_on_failure": False,
+    "email": ["admin@example.com"],
+    "retries": 0,
+    "retry_delay": timedelta(minutes=5),
 }
 
-DEFAULT_VOLUME = f"{os.getcwd()}/data"
+DEFAULT_VOLUME = "/home/xrenya/Documents/MADE/MLProd/airflow/test/data:/data"

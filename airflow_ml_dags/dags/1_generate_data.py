@@ -1,28 +1,25 @@
+import airflow
+
 from airflow import DAG
-from airflow.operators.empty import EmptyOperator
 from airflow.providers.docker.operators.docker import DockerOperator
-from pendulum import today
-from docker.types import Mount
+from airflow.utils.dates import days_ago
 
 from utils import default_args, DEFAULT_VOLUME
 
-
 with DAG(
-        "1_generate_data",
-        default_args=default_args,
-        schedule_interval="@daily",
-        start_date=today("UTC").add(days=-3),
+    dag_id="1_generate_data",
+    start_date=airflow.utils.dates.days_ago(5),
+    schedule_interval="@daily",
+    default_args=default_args,
 ) as dag:
-    start_task = EmptyOperator(task_id="begin-generate-data")
-    download_data = DockerOperator(
-        task_id="docker-airflow-download",
+    download = DockerOperator(
         image="airflow-download",
-        command="output-dir /data/raw/{{ ds }}",
+        command="/data/raw/{{ ds }}",
         network_mode="bridge",
+        task_id="docker-airflow-download",
         do_xcom_push=False,
-        volumes=[Mount("/home/xrenya/Documents/MADE/MLProd/airflow/rinat-homework3/airflow_ml_dags/data", target="/data", type='bind')],
+        volumes=[DEFAULT_VOLUME]
     )
 
-    end_task = EmptyOperator(task_id="end-generate-data")
 
-    start_task >> download_data >> end_task
+    download
