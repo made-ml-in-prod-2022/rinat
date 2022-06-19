@@ -1,17 +1,13 @@
-from datetime import timedelta
-
-import airflow
+import pendulum
 from airflow import DAG
 from airflow.sensors.filesystem import FileSensor
-from airflow.sensors.external_task import ExternalTaskSensor
 from airflow.providers.docker.operators.docker import DockerOperator
-from airflow.utils.dates import days_ago
 
 from utils import default_args, DEFAULT_VOLUME
 
 with DAG(
     dag_id="3_inference",
-    start_date=airflow.utils.dates.days_ago(5),
+    start_date=pendulum.today('UTC').add(days=-3),
     schedule_interval="@daily",
     default_args=default_args,
 ) as dag:
@@ -22,15 +18,6 @@ with DAG(
         filepath="data/raw/{{ ds }}/data.csv",
         fs_conn_id="fs_default"
     )
-
-    # training_pipeline = ExternalTaskSensor(
-    #     task_id="training_pipeline",
-    #     external_dag_id="2_train_pipeline",
-    #     external_task_id='model-evaluation',
-    #     check_existence=True,
-    #     execution_delta=timedelta(days=1),
-    #     timeout=120,
-    # )
 
     prediction = DockerOperator(
         task_id="generate-predicts",
@@ -43,8 +30,4 @@ with DAG(
         volumes=[DEFAULT_VOLUME]
     )
 
-
-    (
-            data_await
-            >> prediction
-    )
+    data_await >> prediction

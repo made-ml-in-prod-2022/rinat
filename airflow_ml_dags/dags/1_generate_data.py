@@ -1,14 +1,12 @@
-import airflow
-
+import pendulum
 from airflow import DAG
 from airflow.providers.docker.operators.docker import DockerOperator
-from airflow.utils.dates import days_ago
 
 from utils import default_args, DEFAULT_VOLUME
 
 with DAG(
     dag_id="1_generate_data",
-    start_date=airflow.utils.dates.days_ago(5),
+    start_date=pendulum.today('UTC').add(days=-3),
     schedule_interval="@daily",
     default_args=default_args,
 ) as dag:
@@ -20,6 +18,5 @@ with DAG(
         do_xcom_push=False,
         volumes=[DEFAULT_VOLUME]
     )
-
 
     download
