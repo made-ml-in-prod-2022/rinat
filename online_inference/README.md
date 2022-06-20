@@ -18,7 +18,7 @@ sudo apt install docker.io
 docker pull xrenya/cont_app:latest
 ```
 
-#### Docker pull
+#### Docker build
 ```bash
 docker build .
 ```
