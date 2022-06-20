@@ -26,7 +26,7 @@ dvc pull
 
 #### Docker run
 ```bash
-docker docker run -p 1234:5000 --name cont_app app
+docker run -p 1234:5000 --name cont_app app
 ```
 ### Tests
 ```bash
