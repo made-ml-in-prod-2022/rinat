@@ -13,7 +13,7 @@ from sklearn.linear_model import LogisticRegression
 logger = logging.getLogger("logs")
 
 
-def setup_logging(logging_yaml_config_fpath):
+def setup_logging(logging_yaml_config_fpath: str):
     """setup logging via YAML if it is provided"""
     if logging_yaml_config_fpath:
         with open(logging_yaml_config_fpath) as config_fin:
