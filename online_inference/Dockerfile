@@ -16,6 +16,8 @@ COPY app.py app/app.py
 
 WORKDIR /app
 
+RUN dvc pull
+
 EXPOSE 5000
 
 CMD ["python", "app.py"]
