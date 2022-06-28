@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: online-replicas
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: inference-replicas
+  template:
+    metadata:
+      name: inference-replicas
+      labels:
+        app: inference-replicas
+    spec:
+      containers:
+        - image: xrenya/cont_app:v2
+          name: inference-replicas
+          ports:
+            - containerPort: 5000

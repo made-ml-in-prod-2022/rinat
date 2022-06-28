@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: online-inference-liveness-blue-green
+  labels:
+    app: online-inference-liveness-blue-green
+spec:
+  replicas: 6
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 6
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: online-inference-liveness-blue-green
+  template:
+    metadata:
+      name: online-inference-liveness-blue-green
+      labels:
+        app: online-inference-liveness-blue-green
+    spec:
+      containers:
+        - image: xrenya/cont_app
+          name: online-inference-liveness-blue-green
+          ports:
+            - containerPort: 5000
