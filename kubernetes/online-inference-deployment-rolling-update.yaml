@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: online-inference-liveness-rolling-update
+  labels:
+    app: online-inference-liveness-rolling-update
+spec:
+  replicas: 6
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: online-inference-liveness-rolling-update
+  template:
+    metadata:
+      name: online-inference-liveness-rolling-update
+      labels:
+        app: online-inference-liveness-rolling-update
+    spec:
+      containers:
+        - image: xrenya/cont_app
+          name: online-inference-liveness-rolling-update
+          ports:
+            - containerPort: 5000

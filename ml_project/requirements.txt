@@ -1,0 +1,15 @@
+numpy
+pandas
+scikit-learn
+hydra-core
+hydra-colorlog
+seaborn
+mlflow
+matplotlib
+
+pytest==7.1.2
+pytest-black==0.3.12
+pytest-flake8==1.1.1
+pytest-cov==3.0.0
+black==22.3.0
+Faker==13.7.0

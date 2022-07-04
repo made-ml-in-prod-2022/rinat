@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: online-inference
+  labels:
+    app: online-inference
+spec:
+  containers:
+    - name: inference
+      image: xrenya/cont_app
+      ports:
+        - name: api
+          containerPort: 5000
+
+      resources:
+        requests:
+          memory: "64Mi"
+          cpu: "0.5"
+        limits:
+          memory: "256Mi"
+          cpu: "1"
